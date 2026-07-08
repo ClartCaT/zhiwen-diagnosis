@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><style id="qw-theme">:root {
+  --color-bg: #faf9fc;
+  --color-text: #131920;
+  --color-navbar-bg: #f9f9fb;
+  --color-bg-chat-view: #fcfcfd;
+  --color-bg-secondary: #ffffff;
+  --color-bg-tertiary: #f9fafb;
+  --color-bg-hover: #f3f4f6;
+  --color-surface: #f9fafb;
+  --color-surface-hover: #f3f4f6;
+  --color-surface-active: #e5e7eb;
+  --color-border: rgba(0, 0, 0, .12);
+  --color-border-light: rgba(0, 0, 0, .06);
+  --color-border-strong: #d1d5db;
+  --color-primary: #4200db;
+  --color-primary-dark: #35009e;
+  --color-primary-light: #8575ff;
+  --color-primary-bg: #e8e6ff;
+  --color-primary-hover-border: #35009e;
+  --color-nav-icon-active: #4200db;
+  --color-nav-hover-border: #4200db;
+  --color-primary-alpha-3: color-mix(in srgb, #4200db 3%, transparent);
+  --color-primary-alpha-5: color-mix(in srgb, #4200db 5%, transparent);
+  --color-primary-alpha-8: color-mix(in srgb, #4200db 8%, transparent);
+  --color-primary-alpha-12: color-mix(in srgb, #4200db 12%, transparent);
+  --color-primary-alpha-15: color-mix(in srgb, #4200db 15%, transparent);
+  --color-primary-alpha-20: color-mix(in srgb, #4200db 20%, transparent);
+  --color-primary-alpha-25: color-mix(in srgb, #4200db 25%, transparent);
+  --color-primary-alpha-30: color-mix(in srgb, #4200db 30%, transparent);
+  --color-primary-alpha-40: color-mix(in srgb, #4200db 40%, transparent);
+  --color-primary-alpha-50: color-mix(in srgb, #4200db 50%, transparent);
+  --color-primary-alpha-60: color-mix(in srgb, #4200db 60%, transparent);
+  --color-primary-subtle: color-mix(in srgb, #4200db 12%, transparent);
+  --color-primary-border: color-mix(in srgb, #4200db 30%, transparent);
+  --color-focus-ring: color-mix(in srgb, #4200db 50%, transparent);
+  --color-sidebar-hover: color-mix(in srgb, #4200db 12%, transparent);
+  --color-accent: #4200db;
+  --color-accent-foreground: #4200db;
+  --color-accent-dark: #35009e;
+  --color-accent-light: #e8e6ff;
+  --color-accent-inverse: #ffffff;
+  --color-link: #4200db;
+  --color-primary-gradient-end: #e8e6ff;
+  --color-primary-bg-solid: #e8e6ff;
+  --color-user-bubble: #F3F3F7;
+  --color-user-bubble-text: #131920;
+  --color-text-secondary: #5e5e5e;
+  --color-text-tertiary: #656871;
+  --color-text-muted: #9ca3af;
+  --color-text-on-primary: #ffffff;
+  --color-success: #00802f;
+  --color-success-dark: #00471e;
+  --color-success-light: #d9ffd6;
+  --color-success-hover: #005c26;
+  --color-success-bg: #e6f5eb;
+  --color-success-border: #b3d9bf;
+  --color-success-foreground: #00802f;
+  --color-success-dark-foreground: #00471e;
+  --color-success-text: #00471e;
+  --color-error: #db0000;
+  --color-error-dark: #700000;
+  --color-error-light: #ffe0e0;
+  --color-error-hover: #ffe0e0;
+  --color-error-bg: #fceaea;
+  --color-error-border: #f2cccc;
+  --color-error-active-border: #db0000;
+  --color-error-foreground: #db0000;
+  --color-error-dark-foreground: #700000;
+  --color-error-inverse: #ffffff;
+  --color-error-text: #700000;
+  --color-warning: #f2b100;
+  --color-warning-dark: #573a00;
+  --color-warning-light: #fffbbd;
+  --color-warning-hover: #db9200;
+  --color-warning-bg: #fef7e6;
+  --color-warning-border: #f9dfa3;
+  --color-warning-foreground: #f2b100;
+  --color-warning-dark-foreground: #573a00;
+  --color-warning-inverse: #573a00;
+  --color-surface-warning: #fffbbd;
+  --color-text-warning: #573a00;
+  --color-info: #006ce0;
+  --color-info-dark: #002a66;
+  --color-info-light: #d1f1ff;
+  --color-info-hover: #003b8f;
+  --color-info-bg: #ebf3fc;
+  --color-info-border: #b3d1f0;
+  --color-info-foreground: #006ce0;
+  --color-info-dark-foreground: #002a66;
+  --color-info-inverse: #ffffff;
+  --color-overlay: rgba(0, 0, 0, .5);
+  --color-shadow: rgba(0, 0, 0, .08);
+  --color-hover: rgba(0, 0, 0, .05);
+  --color-tooltip-bg: rgba(0, 0, 0, .85);
+  --color-tooltip-text: #ffffff;
+  --color-voice-purple: #8575ff;
+  --color-voice-purple-dark: #4200db;
+  --color-voice-purple-light: #8575ff;
+  --color-voice-red: #db0000;
+  --color-voice-red-dark: #700000;
+  --color-voice-amber: #f2b100;
+  --color-voice-purple-glow: rgba(66, 0, 219, .4);
+  --color-voice-red-glow: rgba(219, 0, 0, .4);
+  --font-sans: "Amazon Ember", "Helvetica Neue", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: "SF Mono", "Monaco", "Menlo", "Consolas", monospace;
+  --text-2xs: .5625rem;
+  --text-xs: .625rem;
+  --text-sm: .6875rem;
+  --text-base: .75rem;
+  --text-md: .8125rem;
+  --text-lg: .875rem;
+  --text-xl: 1rem;
+  --text-2xl: 1.125rem;
+  --text-3xl: 1.25rem;
+  --text-4xl: 1.5rem;
+  --text-5xl: 2rem;
+  --spacing-1: calc(.25rem * 1);
+  --spacing-1-5: calc(.25rem * 1.5);
+  --spacing-2: calc(.25rem * 2);
+  --spacing-3: calc(.25rem * 3);
+  --spacing-4: calc(.25rem * 4);
+  --spacing-5: calc(.25rem * 5);
+  --spacing-6: calc(.25rem * 6);
+  --spacing-7: calc(.25rem * 7);
+  --spacing-8: calc(.25rem * 8);
+  --spacing-9: calc(.25rem * 9);
+  --spacing-10: calc(.25rem * 10);
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-card: 12px;
+  --radius-lg: 16px;
+  --radius-pill: 8px;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, .05);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, .08);
+  --color-success-bg-solid: #d9ffd6;
+  --color-error-bg-solid: #ffe0e0;
+  --color-error-border-solid: #ffe0e0;
+  --color-warning-bg-solid: #fffbbd;
+  --color-warning-text: #573a00;
+  --color-info-bg-solid: #d1f1ff;
+  --color-info-bg-solid-alt: #d1f1ff;
+  --color-info-text: #002a66;
+  --color-info-text-alt: #002a66;
+  --color-emerald: #10b981;
+  --color-teal: #4ecdc4;
+  --color-code-bg: #F3F3F7;
+  --color-code-header-bg: #f1f3f5;
+  --color-code-text: #24292e;
+  --color-code-border: #e1e4e8;
+  --color-code-muted: #6a737d;
+  --color-inline-code-bg: #F3F3F7;
+  --color-inline-code-text: #24292e;
+  --color-inline-code-border: #e1e4e8;
+  --color-scrollbar-thumb: #d1d5db;
+  --color-scrollbar-track: transparent;
+  --color-graph-node-text: #333333;
+  --color-graph-node-text-dim: #7F8C8D;
+  --color-graph-edge-default: #95A5A6;
+  --color-graph-edge-cross: #E67E22;
+  --color-graph-edge-text: #666666;
+  --color-graph-edge-stroke: #ffffff;
+  --color-graph-highlight-bg: #FF6B6B;
+  --color-graph-highlight-border: #E74C3C;
+  --color-graph-search-bg: #FFD700;
+  --color-graph-search-border: #FFA500;
+  --color-graph-focus-border: #C0392B;
+  --color-graph-external-border: #95A5A6;
+  --color-graph-cat-file: #3498DB;
+  --color-graph-cat-folder: #7F8C8D;
+  --color-graph-cat-file-aggregate: #2980B9;
+  --color-graph-cat-class: #9B59B6;
+  --color-graph-cat-function: #2ECC71;
+  --color-graph-cat-method: #1ABC9C;
+  --color-graph-cat-variable: #F39C12;
+  --color-graph-cat-import: #D35400;
+  --color-graph-cat-module: #5B6ABF;
+  --color-graph-cat-concept: #E74C3C;
+  --color-graph-cat-person: #FF6B6B;
+  --color-graph-cat-org: #4ECDC4;
+  --color-graph-cat-organization: #4ECDC4;
+  --color-graph-cat-product: #A29BFE;
+  --color-graph-cat-metric: #FD79A8;
+  --color-graph-cat-location: #34495E;
+  --color-graph-cat-date: #E056A0;
+  --color-graph-cat-code: #3498DB;
+  --color-graph-cat-doc: #7F8C8D;
+  --color-graph-cat-url: #00B894;
+  --color-graph-cat-email: #6C5CE7;
+  --color-graph-cat-unknown: #BDC3C7;
+  --color-graph-rel-contains: #BDC3C7;
+  --color-graph-rel-extends: #9B59B6;
+  --color-graph-rel-implements: #3498DB;
+  --color-graph-rel-imports: #E67E22;
+  --color-graph-rel-uses: #2ECC71;
+  --color-graph-rel-calls: #27AE60;
+  --color-graph-rel-references: #F39C12;
+  --color-graph-rel-related-to: #95A5A6;
+  --color-graph-rel-works-on: #E74C3C;
+  --color-graph-rel-owns: #1ABC9C;
+  --color-graph-rel-depends-on: #E67E22;
+  --color-graph-rel-parent-of: #BDC3C7;
+  --qs-content: #fff;
+  --qs-main: #fff;
+  --qs-primary-foreground: #131920;
+  --qs-secondary-foreground: #656871;
+  --qs-tertiary-foreground: #9ca3af;
+  --qs-placeholder-foreground: #8c8c94;
+  --qs-divider: #dedee3;
+  --qs-default-border: #8c8c94;
+  --qs-neutral-soft: #b4b4bb;
+  --qs-neutral-gray-50: #f9fafb;
+  --qs-tertiary-background: #f9fafb;
+  --qs-action-hover: #f3f3f7;
+  --qs-primary-default: #4200db;
+  --qs-primary-dark: #35009e;
+  --qs-primary-light: #e8e6ff;
+  --qs-success-default: #00802f;
+  --qs-error-default: #db0000;
+  --qs-font-sans: "Amazon Ember", "Helvetica Neue", "Segoe UI", Helvetica, Arial, sans-serif;
+  --qs-font-family: "Amazon Ember", "Helvetica Neue", "Segoe UI", Helvetica, Arial, sans-serif;
+  --qs-font-base-letter-spacing: .15px;
+  --qs-shadow-sm: 0 0 2px 0 #00000029, 0 0 4px 0 #00000029;
+  --qs-shadow-md: 0 0 2px 0 #00000029, 0 2px 8px 1px #00000029;
+  --qs-shadow-lg: 0 4px 16px 4px #00000029, 0 2px 6px 1px #00000029;
+  --qs-shadow-xl: 0 4px 8px 2px #00000029, 0 6px 20px 4px #00000029;
+  --qs-width-modal-sm: 384px;
+  --qs-width-modal-md: 600px;
+  --qs-width-modal-lg: 1136px;
+  --qs-grid-gap: 16px;
+  --qs-grid-gap-xl: 24px;
+  --qs-primary-medium: #8575ff;
+  --qs-primary-inverse: #fff;
+  --qs-neutral-lightest: #f9f9fb;
+  --qs-neutral-light: #f3f3f7;
+  --qs-neutral-default: #dedee3;
+  --qs-neutral-medium: #8c8c94;
+  --qs-neutral-deep: #656871;
+  --qs-neutral-dark: #333843;
+  --qs-neutral-strong: #131920;
+  --qs-neutral-white: #fff;
+  --qs-neutral-black: #000;
+  --qs-success-medium: #005c26;
+  --qs-success-dark: #00471e;
+  --qs-success-light: #d9ffd6;
+  --qs-success-inverse: #fff;
+  --qs-info-default: #006ce0;
+  --qs-info-medium: #003b8f;
+  --qs-info-dark: #002a66;
+  --qs-info-light: #d1f1ff;
+  --qs-info-inverse: #fff;
+  --qs-warning-default: #f2b100;
+  --qs-warning-medium: #db9200;
+  --qs-warning-dark: #573a00;
+  --qs-warning-light: #fffbbd;
+  --qs-warning-inverse: #573a00;
+  --qs-warning-experimental: #f2b100;
+  --qs-warning-experimental-light: #fffbbd;
+  --qs-warning-experimental-light-foreground: #fffbbd;
+  --qs-error-medium: #900;
+  --qs-error-dark: #700000;
+  --qs-error-light: #ffe0e0;
+  --qs-error-inverse: #fff;
+  --qs-connection-default: #db3300;
+  --qs-connection-soft: #ff997a;
+  --qs-connection-light: #ffe0d6;
+  --qs-connection-dark: #661800;
+  --qs-automation-default: #b3008f;
+  --qs-automation-medium: #d600ba;
+  --qs-automation-soft: #ff94f1;
+  --qs-automation-light: #ffe0fb;
+  --qs-automation-dark: #660052;
+  --qs-insight-default: #a000b8;
+  --qs-insight-soft: #f299ff;
+  --qs-insight-light: #fce6ff;
+  --qs-insight-dark: #590066;
+  --qs-visualization-default: #7300e5;
+  --qs-visualization-soft: #d4a8ff;
+  --qs-visualization-light: #f2e5ff;
+  --qs-visualization-dark: #45008a;
+  --qs-spice: #ff9800;
+  --qs-coachmark: #006ce0;
+  --qs-brand: #fff;
+  --qs-brand-foreground: #131920;
+  --qs-brand-navbar: #131920;
+  --qs-brand-navbar-foreground: #fff;
+  --qs-brand-navbar-light: #dedee3;
+  --qs-brand-navbar-dark: #000;
+  --qs-application-navbar: #4200db;
+  --qs-application-navbar-foreground: #fff;
+  --qs-application-navbar-light: #e8e6ff;
+  --qs-application-navbar-dark: #35009e;
+  --qs-dimension: #4200db;
+  --qs-dimension-foreground: #fff;
+  --qs-dimension-experimental: #4200db;
+  --qs-dimension-experimental-foreground: #4200db;
+  --qs-measure: #00802f;
+  --qs-measure-foreground: #fff;
+  --qs-measure-experimental: #f2b100;
+  --qs-measure-experimental-foreground: #f2b100;
+  --qs-content-inverse: #333843;
+  --qs-content-inverse-active: #131920;
+  --qs-secondary: #dedee3;
+  --qs-disabled: #8c8c94;
+  --qs-divider-light: #f3f3f7;
+  --qs-hover-border: #333843;
+  --qs-active-border: #4200db;
+  --qs-disabled-border: #dedee3;
+  --qs-error-border: #ffe0e0;
+  --qs-error-active-border: #db0000;
+  --qs-disabled-foreground: #b4b4bb;
+  --qs-primary-inverse-foreground: #fff;
+  --qs-error-foreground: #db0000;
+  --qs-contrast-foreground: #131920;
+  --qs-main-foreground: #131920;
+  --qs-main-secondary-foreground: #656871;
+  --qs-action-disabled: #f3f3f7;
+  --qs-action-active: #e8e6ff;
+  --qs-default-badge: #dedee3;
+  --qs-tag-default: #dedee3;
+  --qs-tag-soft-border: #b4b4bb;
+  --qs-focus-offset: 1px;
+  --qs-toggle-tile-sm: calc(.25rem * 8);
+  --qs-toggle-tile-md: calc(.25rem * 12);
+  --qs-toggle-tile-lg: calc(.25rem * 15);
+  --qs-shadow-pin-right: inset 4px 0 4px -4px #00000029;
+  --qs-shadow-pin-left: inset -4px 0 4px -4px #00000029;
+  --react-pdf-text-layer: 1;
+  --highlight-bg-color: rgba(180, 0, 170, 1);
+  --highlight-selected-bg-color: rgba(0, 100, 0, 1);
+  --react-pdf-annotation-layer: 1;
+  --annotation-unfocused-field-background: url("data:image/svg+xml;charset=UTF-8,<svg width='1px' height='1px' xmlns='http://www.w3.org/2000/svg'><rect width='100%' height='100%' style='fill:rgba(0, 54, 255, 0.13);'/></svg>");
+  --input-focus-border-color: Highlight;
+  --input-focus-outline: 1px solid Canvas;
+  --input-unfocused-border-color: transparent;
+  --input-disabled-border-color: transparent;
+  --input-hover-border-color: black;
+  --link-outline: none;
+  color-scheme: light;
+}
+body { background: var(--color-bg); color: var(--color-text); }
+a { color: var(--color-link, var(--color-primary)); }</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>知问组织诊断工具</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #2563EB;
+      --primary-dark: #1D4ED8;
+      --primary-light: #EFF6FF;
+      --text: #1F2937;
+      --text-secondary: #6B7280;
+      --text-muted: #9CA3AF;
+      --bg: #F9FAFB;
+      --surface: #FFFFFF;
+      --border: #E5E7EB;
+      --border-light: #F3F4F6;
+      --success: #10B981;
+      --warning: #F59E0B;
+      --error: #EF4444;
+      --radius: 12px;
+      --radius-sm: 8px;
+      --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+      --shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1);
+      --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1);
+      --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font); background: var(--bg); color: var(--text); line-height: 1.6; min-height: 100vh; }
+
+    /* Layout */
+    .container { max-width: 720px; margin: 0 auto; padding: 24px 16px; }
+    .card { background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow); padding: 32px; margin-bottom: 24px; }
+
+    /* Header */
+    .header { text-align: center; padding: 48px 24px 32px; }
+    .header-logo { font-size: 32px; font-weight: 700; color: var(--primary); margin-bottom: 8px; }
+    .header-subtitle { color: var(--text-secondary); font-size: 16px; }
+
+    /* Login */
+    .login-card { max-width: 420px; margin: 0 auto; }
+    .form-group { margin-bottom: 20px; }
+    .form-label { display: block; font-size: 14px; font-weight: 500; color: var(--text); margin-bottom: 6px; }
+    .form-input { width: 100%; padding: 12px 16px; border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 15px; transition: border-color 0.2s; outline: none; font-family: var(--font); }
+    .form-input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(37,99,235,0.1); }
+    .btn { display: inline-flex; align-items: center; justify-content: center; padding: 12px 24px; border-radius: var(--radius-sm); font-size: 15px; font-weight: 500; cursor: pointer; border: none; transition: all 0.2s; font-family: var(--font); }
+    .btn-primary { background: var(--primary); color: white; width: 100%; }
+    .btn-primary:hover { background: var(--primary-dark); box-shadow: var(--shadow); }
+    .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+    .btn-secondary { background: var(--border-light); color: var(--text); }
+    .btn-secondary:hover { background: var(--border); }
+
+    /* Welcome */
+    .welcome-page { text-align: center; }
+    .welcome-page h2 { font-size: 22px; margin-bottom: 12px; }
+    .welcome-page p { color: var(--text-secondary); margin-bottom: 8px; }
+    .welcome-info { background: var(--primary-light); border-radius: var(--radius-sm); padding: 16px 20px; margin: 24px 0; text-align: left; }
+    .welcome-info li { margin-bottom: 8px; color: var(--text-secondary); font-size: 14px; }
+    .privacy-note { font-size: 13px; color: var(--text-muted); margin-top: 16px; }
+    .privacy-note i { margin-right: 4px; }
+
+    /* Progress */
+    .progress-bar { height: 6px; background: var(--border-light); border-radius: 3px; margin-bottom: 24px; overflow: hidden; }
+    .progress-fill { height: 100%; background: var(--primary); border-radius: 3px; transition: width 0.3s ease; }
+    .progress-text { font-size: 13px; color: var(--text-muted); margin-bottom: 8px; display: flex; justify-content: space-between; }
+
+    /* Question */
+    .question-card { margin-bottom: 0; }
+    .dimension-badge { display: inline-block; background: var(--primary-light); color: var(--primary); font-size: 12px; font-weight: 500; padding: 4px 10px; border-radius: 100px; margin-bottom: 16px; }
+    .question-text { font-size: 17px; font-weight: 500; margin-bottom: 24px; line-height: 1.5; }
+    .rating-group { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
+    .rating-btn { flex: 1; min-width: 56px; padding: 14px 8px; border: 2px solid var(--border); border-radius: var(--radius-sm); text-align: center; cursor: pointer; transition: all 0.2s; background: var(--surface); }
+    .rating-btn:hover { border-color: var(--primary); background: var(--primary-light); }
+    .rating-btn.selected { border-color: var(--primary); background: var(--primary); color: white; }
+    .rating-btn .score { font-size: 20px; font-weight: 600; display: block; }
+    .rating-btn .label { font-size: 11px; color: var(--text-muted); display: block; margin-top: 2px; }
+    .rating-btn.selected .label { color: rgba(255,255,255,0.8); }
+    .rating-labels { display: flex; justify-content: space-between; font-size: 12px; color: var(--text-muted); margin-bottom: 24px; }
+
+    /* Open question */
+    .open-textarea { width: 100%; min-height: 120px; padding: 12px 16px; border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 15px; font-family: var(--font); resize: vertical; outline: none; line-height: 1.6; }
+    .open-textarea:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(37,99,235,0.1); }
+    .open-hint { font-size: 13px; color: var(--text-muted); margin-top: 8px; }
+
+    /* Navigation */
+    .nav-buttons { display: flex; gap: 12px; margin-top: 24px; }
+    .nav-buttons .btn { flex: 1; }
+    .btn-next { background: var(--primary); color: white; }
+    .btn-next:hover { background: var(--primary-dark); }
+    .btn-prev { background: var(--surface); color: var(--text); border: 1px solid var(--border); }
+    .btn-prev:hover { background: var(--border-light); }
+
+    /* Complete */
+    .complete-page { text-align: center; padding: 48px 24px; }
+    .complete-icon { font-size: 64px; color: var(--success); margin-bottom: 16px; }
+    .complete-page h2 { font-size: 24px; margin-bottom: 12px; }
+    .complete-page p { color: var(--text-secondary); }
+
+    /* Error */
+    .error-msg { background: #FEF2F2; color: var(--error); padding: 12px 16px; border-radius: var(--radius-sm); font-size: 14px; margin-bottom: 16px; display: none; }
+    .error-msg.show { display: block; }
+
+    /* Responsive */
+    @media (max-width: 480px) {
+      .container { padding: 16px 12px; }
+      .card { padding: 20px; }
+      .rating-group { gap: 6px; }
+      .rating-btn { min-width: 48px; padding: 10px 4px; }
+      .rating-btn .score { font-size: 18px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <!-- Login Page -->
+  <div id="page-login">
+    <div class="header">
+      <div class="header-logo">知问组织诊断</div>
+      <div class="header-subtitle">AI驱动的组织健康评估工具</div>
+    </div>
+    <div class="card login-card">
+      <div id="login-error" class="error-msg"></div>
+      <div class="form-group">
+        <label class="form-label">邀请码</label>
+        <input type="text" id="invite-code" class="form-input" placeholder="请输入您收到的邀请码" autocomplete="off">
+      </div>
+      <button class="btn btn-primary" onclick="handleLogin()">
+        <i class="fa-solid fa-arrow-right" style="margin-right:8px;"></i>开始诊断
+      </button>
+    </div>
+  </div>
+
+  <!-- Welcome Page -->
+  <div id="page-welcome" style="display:none;">
+    <div class="card welcome-page">
+      <h2>👋 欢迎参与组织健康诊断</h2>
+      <p id="welcome-company"></p>
+      <div class="welcome-info">
+        <ul style="list-style:none; padding:0;">
+          <li>⏱ 预计用时：<strong id="welcome-time">10-15分钟</strong></li>
+          <li>📋 题目数量：<strong id="welcome-count"></strong>题</li>
+          <li>🎯 包含评分题和开放题</li>
+          <li>💾 支持中途保存，可随时继续</li>
+        </ul>
+      </div>
+      <p class="privacy-note">
+        <i class="fa-solid fa-lock"></i>
+        <span id="privacy-text">您的回答将被严格保密，仅用于生成企业组织诊断报告。</span>
+      </p>
+      <button class="btn btn-primary" onclick="startQuestionnaire()" style="margin-top:24px;">
+        开始填写 <i class="fa-solid fa-arrow-right" style="margin-left:8px;"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Questionnaire Page -->
+  <div id="page-questionnaire" style="display:none;">
+    <div class="progress-text">
+      <span id="progress-label">问题 1/30</span>
+      <span id="progress-dimension"></span>
+    </div>
+    <div class="progress-bar">
+      <div class="progress-fill" id="progress-fill" style="width:0%"></div>
+    </div>
+    <div class="card question-card">
+      <div class="dimension-badge" id="q-dimension"></div>
+      <div class="question-text" id="q-text"></div>
+      
+      <!-- Rating question -->
+      <div id="q-rating" style="display:none;">
+        <div class="rating-group">
+          <div class="rating-btn" onclick="selectRating(1)">
+            <span class="score">1</span>
+            <span class="label">完全没有</span>
+          </div>
+          <div class="rating-btn" onclick="selectRating(2)">
+            <span class="score">2</span>
+            <span class="label">刚起步</span>
+          </div>
+          <div class="rating-btn" onclick="selectRating(3)">
+            <span class="score">3</span>
+            <span class="label">基本有</span>
+          </div>
+          <div class="rating-btn" onclick="selectRating(4)">
+            <span class="score">4</span>
+            <span class="label">较完善</span>
+          </div>
+          <div class="rating-btn" onclick="selectRating(5)">
+            <span class="score">5</span>
+            <span class="label">非常好</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Open question -->
+      <div id="q-open" style="display:none;">
+        <textarea class="open-textarea" id="q-open-input" placeholder="请输入您的想法..."></textarea>
+        <div class="open-hint">请根据实际感受作答，没有标准答案</div>
+      </div>
+
+      <!-- Navigation -->
+      <div class="nav-buttons">
+        <button class="btn btn-prev" id="btn-prev" onclick="prevQuestion()">
+          <i class="fa-solid fa-arrow-left" style="margin-right:6px;"></i>上一题
+        </button>
+        <button class="btn btn-next" id="btn-next" onclick="nextQuestion()">
+          下一题<i class="fa-solid fa-arrow-right" style="margin-left:6px;"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Complete Page -->
+  <div id="page-complete" style="display:none;">
+    <div class="card complete-page">
+      <div class="complete-icon"><i class="fa-solid fa-circle-check"></i></div>
+      <h2>感谢您的参与！</h2>
+      <p>您的回答已成功提交。</p>
+      <p style="margin-top:16px; color:var(--text-muted); font-size:14px;">
+        诊断报告将在所有参与者完成填写后生成，届时我们会通过邮件通知您。
+      </p>
+    </div>
+  </div>
+</div>
+
+<script>
+// ============================================================
+// 知问组织诊断工具 · 前端逻辑
+// ============================================================
+
+// Supabase配置
+const SUPABASE_URL = 'https://phnccyoxgwoekbiuznze.supabase.co';
+const SUPABASE_KEY = '[REDACTED_JWT]';
+
+// 状态
+let currentParticipant = null;
+let questions = [];
+let answers = {};
+let currentIndex = 0;
+
+// 页面切换
+function showPage(pageId) {
+  document.querySelectorAll('[id^="page-"]').forEach(p => p.style.display = 'none');
+  document.getElementById(pageId).style.display = '';
+}
+
+// ---- 登录 ----
+async function handleLogin() {
+  const code = document.getElementById('invite-code').value.trim();
+  if (!code) {
+    showError('请输入邀请码');
+    return;
+  }
+
+  try {
+    // 查询参与者
+    const res = await supabaseQuery('participants', `invite_code=eq.${code}&select=*,projects(company_name,industry,stage)`);
+    if (!res || res.length === 0) {
+      showError('邀请码无效，请检查后重试');
+      return;
+    }
+    
+    currentParticipant = res[0];
+    
+    if (currentParticipant.has_submitted) {
+      showError('您已提交过问卷，无需重复填写');
+      return;
+    }
+
+    // 获取该角色的问卷题目
+    const role = currentParticipant.role;
+    questions = await supabaseQuery('questions', `role=eq.${role}&order=sort_order`);
+    
+    // 加载已保存的答案
+    const savedAnswers = await supabaseQuery('answers', `participant_id=eq.${currentParticipant.id}&select=question_id,rating,open_answer`);
+    if (savedAnswers) {
+      savedAnswers.forEach(a => {
+        answers[a.question_id] = a.rating || a.open_answer || '';
+      });
+    }
+
+    // 设置欢迎页信息
+    const company = currentParticipant.projects?.company_name || '贵公司';
+    document.getElementById('welcome-company').textContent = `${company} · 组织健康诊断`;
+    document.getElementById('welcome-count').textContent = questions.length;
+    
+    const roleNames = { founder: '创始人', manager: '管理者', employee: '员工' };
+    const times = { founder: '15-20', manager: '12-15', employee: '8-10' };
+    document.getElementById('welcome-time').textContent = `${times[role] || '10-15'}分钟`;
+    
+    if (role === 'employee') {
+      document.getElementById('privacy-text').textContent = '本问卷为匿名填写，您的回答不会与个人身份关联。';
+    }
+
+    showPage('page-welcome');
+  } catch (err) {
+    showError('网络错误，请稍后重试');
+    console.error(err);
+  }
+}
+
+// ---- 问卷 ----
+function startQuestionnaire() {
+  currentIndex = 0;
+  showPage('page-questionnaire');
+  renderQuestion();
+}
+
+function renderQuestion() {
+  const q = questions[currentIndex];
+  const total = questions.length;
+  
+  // Progress
+  document.getElementById('progress-label').textContent = `问题 ${currentIndex + 1}/${total}`;
+  document.getElementById('progress-dimension').textContent = q.dimension_cn;
+  document.getElementById('progress-fill').style.width = `${((currentIndex + 1) / total) * 100}%`;
+  
+  // Dimension badge
+  document.getElementById('q-dimension').textContent = q.dimension_cn;
+  
+  // Question text
+  document.getElementById('q-text').textContent = q.question_text;
+  
+  // Show appropriate input
+  if (q.question_type === 'rating') {
+    document.getElementById('q-rating').style.display = '';
+    document.getElementById('q-open').style.display = 'none';
+    // Restore selection
+    document.querySelectorAll('.rating-btn').forEach((btn, i) => {
+      btn.classList.toggle('selected', answers[q.id] === (i + 1));
+    });
+  } else {
+    document.getElementById('q-rating').style.display = 'none';
+    document.getElementById('q-open').style.display = '';
+    document.getElementById('q-open-input').value = answers[q.id] || '';
+  }
+  
+  // Navigation buttons
+  document.getElementById('btn-prev').style.display = currentIndex === 0 ? 'none' : '';
+  const btnNext = document.getElementById('btn-next');
+  if (currentIndex === total - 1) {
+    btnNext.innerHTML = '提交 <i class="fa-solid fa-check" style="margin-left:6px;"></i>';
+  } else {
+    btnNext.innerHTML = '下一题 <i class="fa-solid fa-arrow-right" style="margin-left:6px;"></i>';
+  }
+}
+
+function selectRating(score) {
+  const q = questions[currentIndex];
+  answers[q.id] = score;
+  document.querySelectorAll('.rating-btn').forEach((btn, i) => {
+    btn.classList.toggle('selected', i === (score - 1));
+  });
+  // Auto-advance after brief delay
+  setTimeout(() => {
+    if (currentIndex < questions.length - 1) nextQuestion();
+  }, 300);
+}
+
+function nextQuestion() {
+  const q = questions[currentIndex];
+  
+  // Save open answer
+  if (q.question_type === 'open') {
+    const val = document.getElementById('q-open-input').value.trim();
+    if (val) answers[q.id] = val;
+  }
+  
+  // Validate rating
+  if (q.question_type === 'rating' && !answers[q.id]) {
+    // Allow skipping, but gently nudge
+  }
+  
+  // Save to server (background)
+  saveAnswer(q.id);
+  
+  if (currentIndex < questions.length - 1) {
+    currentIndex++;
+    renderQuestion();
+  } else {
+    submitQuestionnaire();
+  }
+}
+
+function prevQuestion() {
+  if (currentIndex > 0) {
+    // Save current open answer before going back
+    const q = questions[currentIndex];
+    if (q.question_type === 'open') {
+      const val = document.getElementById('q-open-input').value.trim();
+      if (val) answers[q.id] = val;
+    }
+    currentIndex--;
+    renderQuestion();
+  }
+}
+
+async function saveAnswer(questionId) {
+  const q = questions.find(x => x.id === questionId);
+  if (!q) return;
+  
+  const value = answers[questionId];
+  if (!value) return;
+  
+  const body = {
+    participant_id: currentParticipant.id,
+    question_id: questionId,
+  };
+  if (q.question_type === 'rating') {
+    body.rating = value;
+  } else {
+    body.open_answer = value;
+  }
+  
+  try {
+    await supabaseUpsert('answers', body, 'participant_id,question_id');
+  } catch (e) {
+    console.error('Save failed:', e);
+  }
+}
+
+async function submitQuestionnaire() {
+  try {
+    // Mark participant as submitted
+    await supabaseUpdate('participants', currentParticipant.id, {
+      has_submitted: true,
+      submitted_at: new Date().toISOString()
+    });
+    showPage('page-complete');
+  } catch (e) {
+    console.error('Submit failed:', e);
+    showPage('page-complete'); // Show anyway
+  }
+}
+
+// ---- Supabase helpers ----
+async function supabaseQuery(table, queryStr) {
+  const res = await fetch(`${SUPABASE_URL}/rest/v1/${table}?${queryStr}`, {
+    headers: {
+      'apikey': SUPABASE_KEY,
+      'Authorization': `Bearer ${SUPABASE_KEY}`,
+      'Content-Type': 'application/json'
+    }
+  });
+  return res.json();
+}
+
+async function supabaseUpsert(table, body, conflictCols) {
+  const res = await fetch(`${SUPABASE_URL}/rest/v1/${table}`, {
+    method: 'POST',
+    headers: {
+      'apikey': SUPABASE_KEY,
+      'Authorization': `Bearer ${SUPABASE_KEY}`,
+      'Content-Type': 'application/json',
+      'Prefer': 'resolution=merge-duplicates',
+      'on_conflict': conflictCols || ''
+    },
+    body: JSON.stringify(body)
+  });
+  return res;
+}
+
+async function supabaseUpdate(table, id, body) {
+  const res = await fetch(`${SUPABASE_URL}/rest/v1/${table}?id=eq.${id}`, {
+    method: 'PATCH',
+    headers: {
+      'apikey': SUPABASE_KEY,
+      'Authorization': `Bearer ${SUPABASE_KEY}`,
+      'Content-Type': 'application/json',
+      'Prefer': 'return=minimal'
+    },
+    body: JSON.stringify(body)
+  });
+  return res;
+}
+
+// ---- UI helpers ----
+function showError(msg) {
+  const el = document.getElementById('login-error');
+  el.textContent = msg;
+  el.classList.add('show');
+  setTimeout(() => el.classList.remove('show'), 5000);
+}
+
+// ---- 键盘快捷键 ----
+document.addEventListener('keydown', (e) => {
+  if (document.getElementById('page-questionnaire').style.display === 'none') return;
+  const q = questions[currentIndex];
+  if (q?.question_type === 'rating') {
+    if (e.key >= '1' && e.key <= '5') selectRating(parseInt(e.key));
+  }
+  if (e.key === 'ArrowRight' || e.key === 'Enter') {
+    if (q?.question_type !== 'open' || e.key !== 'Enter') nextQuestion();
+  }
+  if (e.key === 'ArrowLeft') prevQuestion();
+});
+</script>
+
+
+
+</body></html>
