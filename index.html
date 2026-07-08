@@ -342,64 +342,38 @@ body { background: var(--color-bg); color: var(--color-text); }
 a { color: var(--color-link, var(--color-primary)); }</style>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>知问组织诊断工具</title>
+  <title>知问组织诊断</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
     :root {
-      --primary: #2563EB;
-      --primary-dark: #1D4ED8;
-      --primary-light: #EFF6FF;
-      --text: #1F2937;
-      --text-secondary: #6B7280;
-      --text-muted: #9CA3AF;
-      --bg: #F9FAFB;
-      --surface: #FFFFFF;
-      --border: #E5E7EB;
-      --border-light: #F3F4F6;
-      --success: #10B981;
-      --warning: #F59E0B;
-      --error: #EF4444;
-      --radius: 12px;
-      --radius-sm: 8px;
-      --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
-      --shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1);
-      --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1);
+      --primary: #2563EB; --primary-dark: #1D4ED8; --primary-light: #EFF6FF;
+      --text: #1F2937; --text-secondary: #6B7280; --text-muted: #9CA3AF;
+      --bg: #F9FAFB; --surface: #FFFFFF; --border: #E5E7EB; --border-light: #F3F4F6;
+      --success: #10B981; --error: #EF4444;
+      --radius: 12px; --radius-sm: 8px;
+      --shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
       --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
     }
-
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: var(--font); background: var(--bg); color: var(--text); line-height: 1.6; min-height: 100vh; }
-
-    /* Layout */
     .container { max-width: 720px; margin: 0 auto; padding: 24px 16px; }
     .card { background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow); padding: 32px; margin-bottom: 24px; }
-
-    /* Header */
     .header { text-align: center; padding: 48px 24px 32px; }
-    .header-logo { font-size: 32px; font-weight: 700; color: var(--primary); margin-bottom: 8px; }
-    .header-subtitle { color: var(--text-secondary); font-size: 16px; }
+    .header-logo { font-size: 28px; font-weight: 700; color: var(--primary); margin-bottom: 8px; }
+    .header-subtitle { color: var(--text-secondary); font-size: 15px; }
 
-    /* Login */
-    .login-card { max-width: 420px; margin: 0 auto; }
-    .form-group { margin-bottom: 20px; }
-    .form-label { display: block; font-size: 14px; font-weight: 500; color: var(--text); margin-bottom: 6px; }
-    .form-input { width: 100%; padding: 12px 16px; border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 15px; transition: border-color 0.2s; outline: none; font-family: var(--font); }
-    .form-input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(37,99,235,0.1); }
-    .btn { display: inline-flex; align-items: center; justify-content: center; padding: 12px 24px; border-radius: var(--radius-sm); font-size: 15px; font-weight: 500; cursor: pointer; border: none; transition: all 0.2s; font-family: var(--font); }
-    .btn-primary { background: var(--primary); color: white; width: 100%; }
-    .btn-primary:hover { background: var(--primary-dark); box-shadow: var(--shadow); }
-    .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
-    .btn-secondary { background: var(--border-light); color: var(--text); }
-    .btn-secondary:hover { background: var(--border); }
+    /* Error / Loading states */
+    .state-page { text-align: center; padding: 60px 24px; }
+    .state-page i { font-size: 48px; margin-bottom: 16px; }
+    .state-page h2 { font-size: 20px; margin-bottom: 8px; }
+    .state-page p { color: var(--text-secondary); font-size: 14px; }
 
     /* Welcome */
     .welcome-page { text-align: center; }
     .welcome-page h2 { font-size: 22px; margin-bottom: 12px; }
-    .welcome-page p { color: var(--text-secondary); margin-bottom: 8px; }
     .welcome-info { background: var(--primary-light); border-radius: var(--radius-sm); padding: 16px 20px; margin: 24px 0; text-align: left; }
-    .welcome-info li { margin-bottom: 8px; color: var(--text-secondary); font-size: 14px; }
+    .welcome-info li { margin-bottom: 8px; color: var(--text-secondary); font-size: 14px; list-style: none; }
     .privacy-note { font-size: 13px; color: var(--text-muted); margin-top: 16px; }
-    .privacy-note i { margin-right: 4px; }
 
     /* Progress */
     .progress-bar { height: 6px; background: var(--border-light); border-radius: 3px; margin-bottom: 24px; overflow: hidden; }
@@ -407,7 +381,6 @@ a { color: var(--color-link, var(--color-primary)); }</style>
     .progress-text { font-size: 13px; color: var(--text-muted); margin-bottom: 8px; display: flex; justify-content: space-between; }
 
     /* Question */
-    .question-card { margin-bottom: 0; }
     .dimension-badge { display: inline-block; background: var(--primary-light); color: var(--primary); font-size: 12px; font-weight: 500; padding: 4px 10px; border-radius: 100px; margin-bottom: 16px; }
     .question-text { font-size: 17px; font-weight: 500; margin-bottom: 24px; line-height: 1.5; }
     .rating-group { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
@@ -417,428 +390,277 @@ a { color: var(--color-link, var(--color-primary)); }</style>
     .rating-btn .score { font-size: 20px; font-weight: 600; display: block; }
     .rating-btn .label { font-size: 11px; color: var(--text-muted); display: block; margin-top: 2px; }
     .rating-btn.selected .label { color: rgba(255,255,255,0.8); }
-    .rating-labels { display: flex; justify-content: space-between; font-size: 12px; color: var(--text-muted); margin-bottom: 24px; }
 
-    /* Open question */
     .open-textarea { width: 100%; min-height: 120px; padding: 12px 16px; border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 15px; font-family: var(--font); resize: vertical; outline: none; line-height: 1.6; }
     .open-textarea:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(37,99,235,0.1); }
     .open-hint { font-size: 13px; color: var(--text-muted); margin-top: 8px; }
 
-    /* Navigation */
     .nav-buttons { display: flex; gap: 12px; margin-top: 24px; }
     .nav-buttons .btn { flex: 1; }
-    .btn-next { background: var(--primary); color: white; }
-    .btn-next:hover { background: var(--primary-dark); }
-    .btn-prev { background: var(--surface); color: var(--text); border: 1px solid var(--border); }
-    .btn-prev:hover { background: var(--border-light); }
+    .btn { display: inline-flex; align-items: center; justify-content: center; padding: 12px 24px; border-radius: var(--radius-sm); font-size: 15px; font-weight: 500; cursor: pointer; border: none; transition: all 0.2s; font-family: var(--font); }
+    .btn-primary { background: var(--primary); color: white; }
+    .btn-primary:hover { background: var(--primary-dark); }
+    .btn-secondary { background: var(--surface); color: var(--text); border: 1px solid var(--border); }
+    .btn-secondary:hover { background: var(--border-light); }
 
-    /* Complete */
     .complete-page { text-align: center; padding: 48px 24px; }
     .complete-icon { font-size: 64px; color: var(--success); margin-bottom: 16px; }
-    .complete-page h2 { font-size: 24px; margin-bottom: 12px; }
-    .complete-page p { color: var(--text-secondary); }
 
-    /* Error */
-    .error-msg { background: #FEF2F2; color: var(--error); padding: 12px 16px; border-radius: var(--radius-sm); font-size: 14px; margin-bottom: 16px; display: none; }
-    .error-msg.show { display: block; }
-
-    /* Responsive */
     @media (max-width: 480px) {
       .container { padding: 16px 12px; }
       .card { padding: 20px; }
       .rating-group { gap: 6px; }
       .rating-btn { min-width: 48px; padding: 10px 4px; }
-      .rating-btn .score { font-size: 18px; }
     }
   </style>
 </head>
 <body>
-
 <div class="container">
-  <!-- Login Page -->
-  <div id="page-login">
+
+  <!-- Loading -->
+  <div id="page-loading" class="state-page">
+    <i class="fa-solid fa-spinner fa-spin" style="color:var(--primary)"></i>
+    <h2>加载中...</h2>
+  </div>
+
+  <!-- Error: invalid link -->
+  <div id="page-error" style="display:none;" class="state-page">
+    <i class="fa-solid fa-circle-xmark" style="color:var(--error)"></i>
+    <h2>链接无效</h2>
+    <p>该链接已过期或不存在，请联系发送方确认。</p>
+  </div>
+
+  <!-- Error: already submitted -->
+  <div id="page-done" style="display:none;" class="state-page">
+    <i class="fa-solid fa-circle-check" style="color:var(--success)"></i>
+    <h2>您已完成填写</h2>
+    <p>感谢您的参与，诊断报告将在所有人完成后生成。</p>
+  </div>
+
+  <!-- Welcome -->
+  <div id="page-welcome" style="display:none;">
     <div class="header">
       <div class="header-logo">知问组织诊断</div>
       <div class="header-subtitle">AI驱动的组织健康评估工具</div>
     </div>
-    <div class="card login-card">
-      <div id="login-error" class="error-msg"></div>
-      <div class="form-group">
-        <label class="form-label">邀请码</label>
-        <input type="text" id="invite-code" class="form-input" placeholder="请输入您收到的邀请码" autocomplete="off">
-      </div>
-      <button class="btn btn-primary" onclick="handleLogin()">
-        <i class="fa-solid fa-arrow-right" style="margin-right:8px;"></i>开始诊断
-      </button>
-    </div>
-  </div>
-
-  <!-- Welcome Page -->
-  <div id="page-welcome" style="display:none;">
     <div class="card welcome-page">
       <h2>👋 欢迎参与组织健康诊断</h2>
-      <p id="welcome-company"></p>
+      <p id="welcome-info-text"></p>
       <div class="welcome-info">
-        <ul style="list-style:none; padding:0;">
-          <li>⏱ 预计用时：<strong id="welcome-time">10-15分钟</strong></li>
-          <li>📋 题目数量：<strong id="welcome-count"></strong>题</li>
+        <ul>
+          <li>⏱ 预计用时：<strong id="w-time">10-15分钟</strong></li>
+          <li>📋 题目数量：<strong id="w-count"></strong>题</li>
           <li>🎯 包含评分题和开放题</li>
           <li>💾 支持中途保存，可随时继续</li>
         </ul>
       </div>
-      <p class="privacy-note">
-        <i class="fa-solid fa-lock"></i>
-        <span id="privacy-text">您的回答将被严格保密，仅用于生成企业组织诊断报告。</span>
-      </p>
-      <button class="btn btn-primary" onclick="startQuestionnaire()" style="margin-top:24px;">
+      <p class="privacy-note"><i class="fa-solid fa-lock"></i> <span id="w-privacy">您的回答将被严格保密，仅用于生成企业组织诊断报告。</span></p>
+      <button class="btn btn-primary" onclick="startQuestionnaire()" style="margin-top:24px; width:100%;">
         开始填写 <i class="fa-solid fa-arrow-right" style="margin-left:8px;"></i>
       </button>
     </div>
   </div>
 
-  <!-- Questionnaire Page -->
+  <!-- Questionnaire -->
   <div id="page-questionnaire" style="display:none;">
     <div class="progress-text">
-      <span id="progress-label">问题 1/30</span>
-      <span id="progress-dimension"></span>
+      <span id="prog-label"></span>
+      <span id="prog-dim"></span>
     </div>
-    <div class="progress-bar">
-      <div class="progress-fill" id="progress-fill" style="width:0%"></div>
-    </div>
-    <div class="card question-card">
-      <div class="dimension-badge" id="q-dimension"></div>
+    <div class="progress-bar"><div class="progress-fill" id="prog-fill"></div></div>
+    <div class="card">
+      <div class="dimension-badge" id="q-dim"></div>
       <div class="question-text" id="q-text"></div>
-      
-      <!-- Rating question -->
       <div id="q-rating" style="display:none;">
         <div class="rating-group">
-          <div class="rating-btn" onclick="selectRating(1)">
-            <span class="score">1</span>
-            <span class="label">完全没有</span>
-          </div>
-          <div class="rating-btn" onclick="selectRating(2)">
-            <span class="score">2</span>
-            <span class="label">刚起步</span>
-          </div>
-          <div class="rating-btn" onclick="selectRating(3)">
-            <span class="score">3</span>
-            <span class="label">基本有</span>
-          </div>
-          <div class="rating-btn" onclick="selectRating(4)">
-            <span class="score">4</span>
-            <span class="label">较完善</span>
-          </div>
-          <div class="rating-btn" onclick="selectRating(5)">
-            <span class="score">5</span>
-            <span class="label">非常好</span>
-          </div>
+          <div class="rating-btn" onclick="selectRating(1)"><span class="score">1</span><span class="label">完全没有</span></div>
+          <div class="rating-btn" onclick="selectRating(2)"><span class="score">2</span><span class="label">刚起步</span></div>
+          <div class="rating-btn" onclick="selectRating(3)"><span class="score">3</span><span class="label">基本有</span></div>
+          <div class="rating-btn" onclick="selectRating(4)"><span class="score">4</span><span class="label">较完善</span></div>
+          <div class="rating-btn" onclick="selectRating(5)"><span class="score">5</span><span class="label">非常好</span></div>
         </div>
       </div>
-
-      <!-- Open question -->
       <div id="q-open" style="display:none;">
         <textarea class="open-textarea" id="q-open-input" placeholder="请输入您的想法..."></textarea>
         <div class="open-hint">请根据实际感受作答，没有标准答案</div>
       </div>
-
-      <!-- Navigation -->
       <div class="nav-buttons">
-        <button class="btn btn-prev" id="btn-prev" onclick="prevQuestion()">
-          <i class="fa-solid fa-arrow-left" style="margin-right:6px;"></i>上一题
-        </button>
-        <button class="btn btn-next" id="btn-next" onclick="nextQuestion()">
-          下一题<i class="fa-solid fa-arrow-right" style="margin-left:6px;"></i>
-        </button>
+        <button class="btn btn-secondary" id="btn-prev" onclick="prevQuestion()"><i class="fa-solid fa-arrow-left" style="margin-right:6px;"></i>上一题</button>
+        <button class="btn btn-primary" id="btn-next" onclick="nextQuestion()">下一题<i class="fa-solid fa-arrow-right" style="margin-left:6px;"></i></button>
       </div>
     </div>
   </div>
 
-  <!-- Complete Page -->
+  <!-- Complete -->
   <div id="page-complete" style="display:none;">
     <div class="card complete-page">
       <div class="complete-icon"><i class="fa-solid fa-circle-check"></i></div>
       <h2>感谢您的参与！</h2>
       <p>您的回答已成功提交。</p>
-      <p style="margin-top:16px; color:var(--text-muted); font-size:14px;">
-        诊断报告将在所有参与者完成填写后生成，届时我们会通过邮件通知您。
-      </p>
+      <p style="margin-top:16px; color:var(--text-muted); font-size:14px;">诊断报告将在所有参与者完成填写后生成，届时会通知您。</p>
     </div>
   </div>
+
 </div>
 
 <script>
 // ============================================================
-// 知问组织诊断工具 · 前端逻辑
+// CONFIG - 请替换为你的真实 Supabase 信息
 // ============================================================
-
-// Supabase配置
 const SUPABASE_URL = 'https://phnccyoxgwoekbiuznze.supabase.co';
-const SUPABASE_KEY = '[eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBobmNjeW94Z3dvZWtiaXV6bnplIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM0OTQwNTAsImV4cCI6MjA5OTA3MDA1MH0.uEpxtmAEpKQV9s78fCLREczK2vluAa6Gp3eKe6ZJ4OA]';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBobmNjeW94Z3dvZWtiaXV6bnplIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM0OTQwNTAsImV4cCI6MjA5OTA3MDA1MH0.uEpxtmAEpKQV9s78fCLREczK2vluAa6Gp3eKe6ZJ4OA'; // 替换为你的 anon public key
 
-// 状态
-let currentParticipant = null;
+// ============================================================
+// STATE
+// ============================================================
+let participant = null;
 let questions = [];
 let answers = {};
-let currentIndex = 0;
+let currentIdx = 0;
 
-// 页面切换
-function showPage(pageId) {
-  document.querySelectorAll('[id^="page-"]').forEach(p => p.style.display = 'none');
-  document.getElementById(pageId).style.display = '';
-}
+// ============================================================
+// INIT - 通过URL参数 token 自动识别身份
+// ============================================================
+async function init() {
+  const params = new URLSearchParams(window.location.search);
+  const token = params.get('t') || params.get('token');
 
-// ---- 登录 ----
-async function handleLogin() {
-  const code = document.getElementById('invite-code').value.trim();
-  if (!code) {
-    showError('请输入邀请码');
-    return;
-  }
+  if (!token) { showPage('page-error'); return; }
 
   try {
-    // 查询参与者
-    const res = await supabaseQuery('participants', `invite_code=eq.${code}&select=*,projects(company_name,industry,stage)`);
-    if (!res || res.length === 0) {
-      showError('邀请码无效，请检查后重试');
-      return;
-    }
-    
-    currentParticipant = res[0];
-    
-    if (currentParticipant.has_submitted) {
-      showError('您已提交过问卷，无需重复填写');
-      return;
-    }
+    // 查询参与者（通过 invite_code 字段存 token）
+    const res = await api('participants?invite_code=eq.' + token + '&select=*,projects(company_name)');
+    if (!res.ok) { showPage('page-error'); return; }
+    const data = await res.json();
+    if (!data || data.length === 0) { showPage('page-error'); return; }
 
-    // 获取该角色的问卷题目
-    const role = currentParticipant.role;
-    questions = await supabaseQuery('questions', `role=eq.${role}&order=sort_order`);
-    
+    participant = data[0];
+
+    // 已提交过
+    if (participant.has_submitted) { showPage('page-done'); return; }
+
+    // 加载该角色的题目
+    const qRes = await api('questions?role=eq.' + participant.role + '&order=sort_order');
+    if (!qRes.ok) { showPage('page-error'); return; }
+    questions = await qRes.json();
+
     // 加载已保存的答案
-    const savedAnswers = await supabaseQuery('answers', `participant_id=eq.${currentParticipant.id}&select=question_id,rating,open_answer`);
-    if (savedAnswers) {
-      savedAnswers.forEach(a => {
-        answers[a.question_id] = a.rating || a.open_answer || '';
-      });
+    const aRes = await api('answers?participant_id=eq.' + participant.id + '&select=question_id,rating,open_answer');
+    if (aRes.ok) {
+      const saved = await aRes.json();
+      saved.forEach(a => { answers[a.question_id] = a.rating || a.open_answer || ''; });
     }
 
     // 设置欢迎页信息
-    const company = currentParticipant.projects?.company_name || '贵公司';
-    document.getElementById('welcome-company').textContent = `${company} · 组织健康诊断`;
-    document.getElementById('welcome-count').textContent = questions.length;
-    
+    const company = participant.projects?.company_name || '';
     const roleNames = { founder: '创始人', manager: '管理者', employee: '员工' };
     const times = { founder: '15-20', manager: '12-15', employee: '8-10' };
-    document.getElementById('welcome-time').textContent = `${times[role] || '10-15'}分钟`;
-    
-    if (role === 'employee') {
-      document.getElementById('privacy-text').textContent = '本问卷为匿名填写，您的回答不会与个人身份关联。';
+    document.getElementById('welcome-info-text').textContent = company ? `${company} · 组织健康诊断` : '组织健康诊断';
+    document.getElementById('w-count').textContent = questions.length;
+    document.getElementById('w-time').textContent = (times[participant.role] || '10-15') + '分钟';
+    if (participant.role === 'employee') {
+      document.getElementById('w-privacy').textContent = '本问卷为匿名填写，您的回答不会与个人身份关联。';
     }
 
     showPage('page-welcome');
-  } catch (err) {
-    showError('网络错误，请稍后重试');
-    console.error(err);
+  } catch (e) {
+    console.error(e);
+    showPage('page-error');
   }
 }
 
-// ---- 问卷 ----
-function startQuestionnaire() {
-  currentIndex = 0;
-  showPage('page-questionnaire');
-  renderQuestion();
-}
+// ============================================================
+// QUESTIONNAIRE
+// ============================================================
+function startQuestionnaire() { currentIdx = 0; showPage('page-questionnaire'); renderQ(); }
 
-function renderQuestion() {
-  const q = questions[currentIndex];
+function renderQ() {
+  const q = questions[currentIdx];
   const total = questions.length;
-  
-  // Progress
-  document.getElementById('progress-label').textContent = `问题 ${currentIndex + 1}/${total}`;
-  document.getElementById('progress-dimension').textContent = q.dimension_cn;
-  document.getElementById('progress-fill').style.width = `${((currentIndex + 1) / total) * 100}%`;
-  
-  // Dimension badge
-  document.getElementById('q-dimension').textContent = q.dimension_cn;
-  
-  // Question text
+  document.getElementById('prog-label').textContent = `问题 ${currentIdx+1}/${total}`;
+  document.getElementById('prog-dim').textContent = q.dimension_cn;
+  document.getElementById('prog-fill').style.width = `${((currentIdx+1)/total)*100}%`;
+  document.getElementById('q-dim').textContent = q.dimension_cn;
   document.getElementById('q-text').textContent = q.question_text;
-  
-  // Show appropriate input
+
   if (q.question_type === 'rating') {
     document.getElementById('q-rating').style.display = '';
     document.getElementById('q-open').style.display = 'none';
-    // Restore selection
     document.querySelectorAll('.rating-btn').forEach((btn, i) => {
-      btn.classList.toggle('selected', answers[q.id] === (i + 1));
+      btn.classList.toggle('selected', answers[q.id] === (i+1));
     });
   } else {
     document.getElementById('q-rating').style.display = 'none';
     document.getElementById('q-open').style.display = '';
     document.getElementById('q-open-input').value = answers[q.id] || '';
   }
-  
-  // Navigation buttons
-  document.getElementById('btn-prev').style.display = currentIndex === 0 ? 'none' : '';
-  const btnNext = document.getElementById('btn-next');
-  if (currentIndex === total - 1) {
-    btnNext.innerHTML = '提交 <i class="fa-solid fa-check" style="margin-left:6px;"></i>';
-  } else {
-    btnNext.innerHTML = '下一题 <i class="fa-solid fa-arrow-right" style="margin-left:6px;"></i>';
-  }
+
+  document.getElementById('btn-prev').style.display = currentIdx === 0 ? 'none' : '';
+  document.getElementById('btn-next').innerHTML = currentIdx === total - 1
+    ? '提交 <i class="fa-solid fa-check" style="margin-left:6px;"></i>'
+    : '下一题 <i class="fa-solid fa-arrow-right" style="margin-left:6px;"></i>';
 }
 
 function selectRating(score) {
-  const q = questions[currentIndex];
+  const q = questions[currentIdx];
   answers[q.id] = score;
-  document.querySelectorAll('.rating-btn').forEach((btn, i) => {
-    btn.classList.toggle('selected', i === (score - 1));
-  });
-  // Auto-advance after brief delay
-  setTimeout(() => {
-    if (currentIndex < questions.length - 1) nextQuestion();
-  }, 300);
+  document.querySelectorAll('.rating-btn').forEach((btn, i) => btn.classList.toggle('selected', i === score-1));
+  setTimeout(() => { if (currentIdx < questions.length - 1) nextQuestion(); }, 300);
 }
 
 function nextQuestion() {
-  const q = questions[currentIndex];
-  
-  // Save open answer
-  if (q.question_type === 'open') {
-    const val = document.getElementById('q-open-input').value.trim();
-    if (val) answers[q.id] = val;
-  }
-  
-  // Validate rating
-  if (q.question_type === 'rating' && !answers[q.id]) {
-    // Allow skipping, but gently nudge
-  }
-  
-  // Save to server (background)
+  const q = questions[currentIdx];
+  if (q.question_type === 'open') { answers[q.id] = document.getElementById('q-open-input').value.trim(); }
   saveAnswer(q.id);
-  
-  if (currentIndex < questions.length - 1) {
-    currentIndex++;
-    renderQuestion();
-  } else {
-    submitQuestionnaire();
-  }
+  if (currentIdx < questions.length - 1) { currentIdx++; renderQ(); }
+  else { submitAll(); }
 }
 
 function prevQuestion() {
-  if (currentIndex > 0) {
-    // Save current open answer before going back
-    const q = questions[currentIndex];
-    if (q.question_type === 'open') {
-      const val = document.getElementById('q-open-input').value.trim();
-      if (val) answers[q.id] = val;
-    }
-    currentIndex--;
-    renderQuestion();
-  }
+  const q = questions[currentIdx];
+  if (q.question_type === 'open') { answers[q.id] = document.getElementById('q-open-input').value.trim(); }
+  if (currentIdx > 0) { currentIdx--; renderQ(); }
 }
 
-async function saveAnswer(questionId) {
-  const q = questions.find(x => x.id === questionId);
-  if (!q) return;
-  
-  const value = answers[questionId];
-  if (!value) return;
-  
-  const body = {
-    participant_id: currentParticipant.id,
-    question_id: questionId,
-  };
-  if (q.question_type === 'rating') {
-    body.rating = value;
-  } else {
-    body.open_answer = value;
-  }
-  
-  try {
-    await supabaseUpsert('answers', body, 'participant_id,question_id');
-  } catch (e) {
-    console.error('Save failed:', e);
-  }
+async function saveAnswer(qid) {
+  const q = questions.find(x => x.id === qid);
+  if (!q || !answers[qid]) return;
+  const body = { participant_id: participant.id, question_id: qid };
+  if (q.question_type === 'rating') body.rating = answers[qid];
+  else body.open_answer = answers[qid];
+  await api('answers', 'POST', body, 'resolution=merge-duplicates');
 }
 
-async function submitQuestionnaire() {
-  try {
-    // Mark participant as submitted
-    await supabaseUpdate('participants', currentParticipant.id, {
-      has_submitted: true,
-      submitted_at: new Date().toISOString()
-    });
-    showPage('page-complete');
-  } catch (e) {
-    console.error('Submit failed:', e);
-    showPage('page-complete'); // Show anyway
-  }
+async function submitAll() {
+  await api('participants?id=eq.' + participant.id, 'PATCH', { has_submitted: true, submitted_at: new Date().toISOString() });
+  showPage('page-complete');
 }
 
-// ---- Supabase helpers ----
-async function supabaseQuery(table, queryStr) {
-  const res = await fetch(`${SUPABASE_URL}/rest/v1/${table}?${queryStr}`, {
-    headers: {
-      'apikey': SUPABASE_KEY,
-      'Authorization': `Bearer ${SUPABASE_KEY}`,
-      'Content-Type': 'application/json'
-    }
-  });
-  return res.json();
+// ============================================================
+// HELPERS
+// ============================================================
+function showPage(id) { document.querySelectorAll('[id^="page-"]').forEach(p => p.style.display = 'none'); document.getElementById(id).style.display = ''; }
+
+async function api(path, method, body, prefer) {
+  const headers = { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY, 'Content-Type': 'application/json' };
+  if (prefer) headers['Prefer'] = prefer;
+  const opts = { method: method || 'GET', headers };
+  if (body) opts.body = JSON.stringify(body);
+  return fetch(`${SUPABASE_URL}/rest/v1/${path}`, opts);
 }
 
-async function supabaseUpsert(table, body, conflictCols) {
-  const res = await fetch(`${SUPABASE_URL}/rest/v1/${table}`, {
-    method: 'POST',
-    headers: {
-      'apikey': SUPABASE_KEY,
-      'Authorization': `Bearer ${SUPABASE_KEY}`,
-      'Content-Type': 'application/json',
-      'Prefer': 'resolution=merge-duplicates',
-      'on_conflict': conflictCols || ''
-    },
-    body: JSON.stringify(body)
-  });
-  return res;
-}
-
-async function supabaseUpdate(table, id, body) {
-  const res = await fetch(`${SUPABASE_URL}/rest/v1/${table}?id=eq.${id}`, {
-    method: 'PATCH',
-    headers: {
-      'apikey': SUPABASE_KEY,
-      'Authorization': `Bearer ${SUPABASE_KEY}`,
-      'Content-Type': 'application/json',
-      'Prefer': 'return=minimal'
-    },
-    body: JSON.stringify(body)
-  });
-  return res;
-}
-
-// ---- UI helpers ----
-function showError(msg) {
-  const el = document.getElementById('login-error');
-  el.textContent = msg;
-  el.classList.add('show');
-  setTimeout(() => el.classList.remove('show'), 5000);
-}
-
-// ---- 键盘快捷键 ----
-document.addEventListener('keydown', (e) => {
+// Keyboard shortcuts
+document.addEventListener('keydown', e => {
   if (document.getElementById('page-questionnaire').style.display === 'none') return;
-  const q = questions[currentIndex];
-  if (q?.question_type === 'rating') {
-    if (e.key >= '1' && e.key <= '5') selectRating(parseInt(e.key));
-  }
-  if (e.key === 'ArrowRight' || e.key === 'Enter') {
-    if (q?.question_type !== 'open' || e.key !== 'Enter') nextQuestion();
-  }
+  const q = questions[currentIdx];
+  if (q?.question_type === 'rating' && e.key >= '1' && e.key <= '5') selectRating(+e.key);
+  if (e.key === 'ArrowRight') nextQuestion();
   if (e.key === 'ArrowLeft') prevQuestion();
 });
-</script>
 
+// Start
+init();
+</script>
 
 
 </body></html>
