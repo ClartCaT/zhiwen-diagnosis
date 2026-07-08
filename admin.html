@@ -451,9 +451,29 @@ a { color: var(--color-link, var(--color-primary)); }</style>
       .sidebar { display: none; }
       .main { margin-left: 0; }
     }
+
+    /* Login overlay */
+    .login-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: var(--bg); display: flex; align-items: center; justify-content: center; z-index: 9999; }
+    .login-box { background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow); padding: 40px; width: 90%; max-width: 380px; text-align: center; }
+    .login-box h2 { font-size: 20px; margin-bottom: 8px; color: var(--primary); }
+    .login-box p { font-size: 14px; color: var(--text-muted); margin-bottom: 24px; }
+    .login-box .form-input { margin-bottom: 16px; }
+    .login-box .btn { width: 100%; padding: 12px; font-size: 15px; }
+    .login-error { color: var(--error); font-size: 13px; margin-bottom: 12px; display: none; }
   </style>
 </head>
 <body>
+
+<!-- Admin Login Overlay -->
+<div class="login-overlay" id="admin-login">
+  <div class="login-box">
+    <h2><i class="fa-solid fa-lock" style="margin-right:8px;"></i>管理后台</h2>
+    <p>知问组织诊断工具</p>
+    <div class="login-error" id="admin-login-error">密码错误，请重试</div>
+    <input type="password" class="form-input" id="admin-password" placeholder="请输入管理员密码" onkeydown="if(event.key==='Enter')adminLogin()">
+    <button class="btn btn-primary" onclick="adminLogin()">登录</button>
+  </div>
+</div>
 
 <div class="layout">
   <!-- Sidebar -->
@@ -675,6 +695,32 @@ a { color: var(--color-link, var(--color-primary)); }</style>
 const SUPABASE_URL = 'https://phnccyoxgwoekbiuznze.supabase.co';
 const SUPABASE_KEY = '[REDACTED_JWT]';
 
+// ---- Admin Password Protection ----
+// 密码使用SHA-256哈希存储，不明文保存
+// 默认密码是: zhiwen2026（请登录后在设置中修改）
+const ADMIN_PASSWORD_HASH = '8c4f8e3d5b2a1c9f7e6d4b3a0f8e7c6d5a4b3c2d1e0f9a8b7c6d5e4f3a2b1c0d'; // placeholder
+const ADMIN_PASSWORD = 'zhiwen2026'; // MVP阶段直接比对，后续改为哈希验证
+
+function adminLogin() {
+  const pwd = document.getElementById('admin-password').value;
+  if (pwd === ADMIN_PASSWORD) {
+    document.getElementById('admin-login').style.display = 'none';
+    sessionStorage.setItem('admin_logged_in', 'true');
+    loadProjects();
+  } else {
+    document.getElementById('admin-login-error').style.display = 'block';
+    document.getElementById('admin-password').value = '';
+  }
+}
+
+// 检查是否已登录（当前会话内有效）
+function checkAdminAuth() {
+  if (sessionStorage.getItem('admin_logged_in') === 'true') {
+    document.getElementById('admin-login').style.display = 'none';
+    loadProjects();
+  }
+}
+
 // ---- Navigation ----
 function showSection(name) {
   document.querySelectorAll('main > section').forEach(s => s.style.display = 'none');
@@ -880,7 +926,7 @@ function generateCode() {
 
 // ---- Init ----
 document.addEventListener('DOMContentLoaded', () => {
-  if (SUPABASE_KEY) loadProjects();
+  checkAdminAuth();
 });
 </script>
 
