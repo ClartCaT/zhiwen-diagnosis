@@ -343,7 +343,6 @@ a { color: var(--color-link, var(--color-primary)); }</style>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>知问组织诊断 · 管理后台</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
     :root {
       --primary: #2563EB; --primary-dark: #1D4ED8; --primary-light: #EFF6FF;
@@ -357,44 +356,33 @@ a { color: var(--color-link, var(--color-primary)); }</style>
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: var(--font); background: var(--bg); color: var(--text); line-height: 1.6; }
-
     .layout { display: flex; min-height: 100vh; }
     .sidebar { width: 220px; background: var(--surface); border-right: 1px solid var(--border); padding: 24px 12px; position: fixed; height: 100vh; }
     .sidebar-logo { font-size: 17px; font-weight: 700; color: var(--primary); margin-bottom: 28px; padding: 0 8px; }
     .sidebar-nav a { display: flex; align-items: center; gap: 8px; padding: 9px 12px; border-radius: var(--radius-sm); color: var(--text-secondary); text-decoration: none; font-size: 13px; margin-bottom: 3px; }
     .sidebar-nav a:hover { background: var(--border-light); }
     .sidebar-nav a.active { background: var(--primary-light); color: var(--primary); font-weight: 500; }
-    .sidebar-nav a i { width: 16px; text-align: center; }
-
     .main { margin-left: 220px; flex: 1; padding: 28px; }
-    .page-header { margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+    .page-header { margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
     .page-header h1 { font-size: 22px; font-weight: 600; }
-
     .card { background: var(--surface); border-radius: var(--radius); border: 1px solid var(--border-light); box-shadow: var(--shadow-sm); padding: 20px; margin-bottom: 16px; }
     .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px,1fr)); gap: 12px; margin-bottom: 20px; }
     .stat-card { padding: 16px; }
     .stat-label { font-size: 12px; color: var(--text-muted); }
     .stat-value { font-size: 24px; font-weight: 700; }
-
     table { width: 100%; border-collapse: collapse; font-size: 13px; }
     th { text-align: left; color: var(--text-muted); font-weight: 500; padding: 10px 12px; border-bottom: 1px solid var(--border); }
     td { padding: 10px 12px; border-bottom: 1px solid var(--border-light); }
     tr:hover td { background: var(--border-light); }
-
     .badge { display: inline-block; padding: 2px 8px; border-radius: 100px; font-size: 11px; font-weight: 500; }
     .badge-collecting { background: var(--info-light); color: var(--info); }
     .badge-done { background: var(--success-light); color: var(--success); }
-    .badge-pending { background: var(--warning-light); color: var(--warning); }
-
     .btn { display: inline-flex; align-items: center; gap: 5px; padding: 7px 14px; border-radius: var(--radius-sm); font-size: 13px; font-weight: 500; cursor: pointer; border: none; font-family: var(--font); transition: all .15s; }
     .btn-primary { background: var(--primary); color: white; }
     .btn-primary:hover { background: var(--primary-dark); }
     .btn-sm { padding: 5px 10px; font-size: 12px; }
     .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text-secondary); }
     .btn-outline:hover { background: var(--border-light); }
-    .btn-success { background: var(--success); color: white; }
-    .btn-danger { background: var(--error); color: white; }
-
     .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.4); display: none; align-items: center; justify-content: center; z-index: 1000; }
     .modal-overlay.show { display: flex; }
     .modal { background: var(--surface); border-radius: var(--radius); width: 90%; max-width: 520px; max-height: 80vh; overflow-y: auto; padding: 28px; }
@@ -404,20 +392,11 @@ a { color: var(--color-link, var(--color-primary)); }</style>
     .form-input, .form-select { width: 100%; padding: 9px 12px; border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 13px; font-family: var(--font); outline: none; }
     .form-input:focus, .form-select:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(37,99,235,.1); }
     .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-
-    .link-box { background: var(--border-light); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 8px 12px; font-size: 12px; word-break: break-all; color: var(--text-secondary); display: flex; align-items: center; gap: 8px; }
-    .link-box code { flex: 1; }
-    .copy-btn { cursor: pointer; color: var(--primary); font-size: 14px; }
-    .copy-btn:hover { color: var(--primary-dark); }
-
+    .link-box { background: var(--border-light); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 6px 10px; font-size: 11px; word-break: break-all; color: var(--text-secondary); display: inline-flex; align-items: center; gap: 6px; max-width: 280px; cursor: pointer; }
+    .link-box:hover { border-color: var(--primary); }
     .participant-list { margin-top: 16px; }
-    .participant-item { display: flex; align-items: center; justify-content: space-between; padding: 10px 12px; border: 1px solid var(--border-light); border-radius: var(--radius-sm); margin-bottom: 8px; }
+    .participant-item { display: flex; align-items: center; justify-content: space-between; padding: 10px 12px; border: 1px solid var(--border-light); border-radius: var(--radius-sm); margin-bottom: 8px; flex-wrap: wrap; gap: 8px; }
     .participant-item .info { display: flex; align-items: center; gap: 10px; }
-    .participant-item .name { font-weight: 500; font-size: 13px; }
-    .participant-item .email { font-size: 12px; color: var(--text-muted); }
-    .participant-item .status { font-size: 11px; }
-
-    /* Login overlay */
     .login-overlay { position: fixed; inset: 0; background: var(--bg); display: flex; align-items: center; justify-content: center; z-index: 9999; }
     .login-box { background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow); padding: 36px; width: 90%; max-width: 360px; text-align: center; }
     .login-box h2 { font-size: 18px; color: var(--primary); margin-bottom: 6px; }
@@ -425,76 +404,62 @@ a { color: var(--color-link, var(--color-primary)); }</style>
     .login-box .form-input { margin-bottom: 14px; }
     .login-box .btn { width: 100%; padding: 10px; }
     .login-error { color: var(--error); font-size: 12px; margin-bottom: 10px; display: none; }
-
+    .toast-container { position: fixed; top: 20px; right: 20px; z-index: 10000; }
+    .toast { background: var(--text); color: white; padding: 12px 20px; border-radius: var(--radius-sm); font-size: 13px; margin-bottom: 8px; max-width: 360px; box-shadow: var(--shadow); animation: toastIn .3s ease; }
+    @keyframes toastIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
     @media (max-width: 768px) { .sidebar { display: none; } .main { margin-left: 0; } }
   </style>
 </head>
 <body>
-
-<!-- Login -->
+<div class="toast-container" id="toast-container"></div>
 <div class="login-overlay" id="login-overlay">
   <div class="login-box">
-    <h2><i class="fa-solid fa-lock"></i> 管理后台</h2>
+    <h2>🔒 管理后台</h2>
     <p>知问组织诊断工具</p>
     <div class="login-error" id="login-error">密码错误</div>
-    <input type="password" class="form-input" id="login-pwd" placeholder="管理员密码" onkeydown="if(event.key==='Enter')doLogin()">
-    <button class="btn btn-primary" onclick="doLogin()">登录</button>
+    <input type="password" class="form-input" id="login-pwd" placeholder="管理员密码">
+    <button class="btn btn-primary" id="login-btn">登录</button>
   </div>
 </div>
-
 <div class="layout">
   <aside class="sidebar">
-    <div class="sidebar-logo"><i class="fa-solid fa-stethoscope"></i> 知问诊断</div>
+    <div class="sidebar-logo">🩹 知问诊断</div>
     <nav class="sidebar-nav" id="nav">
-      <a href="#" data-sec="dashboard" class="active"><i class="fa-solid fa-house"></i>仪表盘</a>
-      <a href="#" data-sec="projects"><i class="fa-solid fa-folder-open"></i>诊断项目</a>
-      <a href="#" data-sec="settings"><i class="fa-solid fa-gear"></i>设置</a>
+      <a href="#" data-sec="dashboard" class="active">🏠 仪表盘</a>
+      <a href="#" data-sec="projects">📂 诊断项目</a>
+      <a href="#" data-sec="settings">⚙ 设置</a>
     </nav>
   </aside>
-
   <main class="main">
-    <!-- Dashboard -->
     <section id="sec-dashboard">
-      <div class="page-header"><h1>仪表盘</h1><button class="btn btn-primary" onclick="openModal('modal-new-project')"><i class="fa-solid fa-plus"></i>新建项目</button></div>
+      <div class="page-header"><h1>仪表盘</h1><button class="btn btn-primary" id="btn-new-project">+ 新建项目</button></div>
       <div class="stats-grid">
         <div class="card stat-card"><div class="stat-label">进行中</div><div class="stat-value" id="s-active">0</div></div>
         <div class="card stat-card"><div class="stat-label">已完成</div><div class="stat-value" id="s-done">0</div></div>
         <div class="card stat-card"><div class="stat-label">总项目数</div><div class="stat-value" id="s-total">0</div></div>
       </div>
-      <div class="card">
-        <h3 style="font-size:15px; margin-bottom:12px;">最近项目</h3>
+      <div class="card"><h3 style="font-size:15px;margin-bottom:12px;">最近项目</h3>
         <table><thead><tr><th>公司</th><th>行业</th><th>状态</th><th>进度</th><th>操作</th></tr></thead>
         <tbody id="tb-projects"><tr><td colspan="5" style="text-align:center;color:var(--text-muted);padding:30px;">暂无项目</td></tr></tbody></table>
       </div>
     </section>
-
-    <!-- Projects (same as dashboard table for now) -->
     <section id="sec-projects" style="display:none;">
-      <div class="page-header"><h1>诊断项目</h1><button class="btn btn-primary" onclick="openModal('modal-new-project')"><i class="fa-solid fa-plus"></i>新建项目</button></div>
+      <div class="page-header"><h1>诊断项目</h1><button class="btn btn-primary" id="btn-new-project2">+ 新建项目</button></div>
       <div class="card"><table><thead><tr><th>公司</th><th>行业</th><th>规模</th><th>状态</th><th>进度</th><th>创建时间</th><th>操作</th></tr></thead><tbody id="tb-projects2"></tbody></table></div>
     </section>
-
-    <!-- Settings -->
     <section id="sec-settings" style="display:none;">
       <div class="page-header"><h1>设置</h1></div>
       <div class="card"><p style="color:var(--text-muted);font-size:13px;">基础设置功能开发中</p></div>
     </section>
-
-    <!-- Project Detail (shown dynamically) -->
     <section id="sec-detail" style="display:none;">
       <div class="page-header">
-        <div><button class="btn btn-outline btn-sm" onclick="backToList()" style="margin-bottom:8px;"><i class="fa-solid fa-arrow-left"></i> 返回</button><h1 id="detail-title"></h1></div>
-        <button class="btn btn-primary" onclick="openModal('modal-add-participant')"><i class="fa-solid fa-user-plus"></i>添加参与者</button>
+        <div><button class="btn btn-outline btn-sm" id="btn-back">← 返回</button><h1 id="detail-title"></h1></div>
+        <button class="btn btn-primary" id="btn-add-participant">+ 添加参与者</button>
       </div>
-      <div class="card">
-        <h3 style="font-size:14px; margin-bottom:12px;">参与者列表</h3>
-        <div id="participant-list" class="participant-list"></div>
-      </div>
+      <div class="card"><h3 style="font-size:14px;margin-bottom:12px;">参与者列表</h3><div id="participant-list" class="participant-list"></div></div>
     </section>
   </main>
 </div>
-
-<!-- Modal: New Project -->
 <div class="modal-overlay" id="modal-new-project">
   <div class="modal">
     <h2>新建诊断项目</h2>
@@ -508,14 +473,12 @@ a { color: var(--color-link, var(--color-primary)); }</style>
       <div class="form-group"><label class="form-label">联系人邮箱</label><input class="form-input" id="np-email" placeholder="选填"></div>
     </div>
     <div class="form-group"><label class="form-label">联系人姓名</label><input class="form-input" id="np-contact" placeholder="选填"></div>
-    <div style="display:flex; gap:10px; margin-top:20px; justify-content:flex-end;">
-      <button class="btn btn-outline" onclick="closeModal('modal-new-project')">取消</button>
-      <button class="btn btn-primary" onclick="createProject()">创建项目</button>
+    <div style="display:flex;gap:10px;margin-top:20px;justify-content:flex-end;">
+      <button class="btn btn-outline" id="btn-cancel-project">取消</button>
+      <button class="btn btn-primary" id="btn-create-project">创建项目</button>
     </div>
   </div>
 </div>
-
-<!-- Modal: Add Participant -->
 <div class="modal-overlay" id="modal-add-participant">
   <div class="modal">
     <h2>添加参与者</h2>
@@ -523,109 +486,138 @@ a { color: var(--color-link, var(--color-primary)); }</style>
       <select class="form-select" id="ap-role"><option value="founder">创始人</option><option value="manager">管理者</option><option value="employee">员工</option></select>
     </div>
     <div class="form-group"><label class="form-label">姓名</label><input class="form-input" id="ap-name" placeholder="员工可留空（匿名）"></div>
-    <div class="form-group"><label class="form-label">邮箱 *</label><input class="form-input" id="ap-email" placeholder="用于发送专属链接" type="email"></div>
-    <div style="display:flex; gap:10px; margin-top:20px; justify-content:flex-end;">
-      <button class="btn btn-outline" onclick="closeModal('modal-add-participant')">取消</button>
-      <button class="btn btn-primary" onclick="addParticipant()">添加</button>
+    <div class="form-group"><label class="form-label">邮箱 *</label><input class="form-input" id="ap-email" placeholder="用于标识参与者" type="email"></div>
+    <div style="display:flex;gap:10px;margin-top:20px;justify-content:flex-end;">
+      <button class="btn btn-outline" id="btn-cancel-participant">取消</button>
+      <button class="btn btn-primary" id="btn-do-add-participant">添加</button>
     </div>
   </div>
 </div>
-
 <script>
-// ============================================================
-// CONFIG
-// ============================================================
-const SUPABASE_URL = 'https://phnccyoxgwoekbiuznze.supabase.co';
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBobmNjeW94Z3dvZWtiaXV6bnplIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM0OTQwNTAsImV4cCI6MjA5OTA3MDA1MH0.uEpxtmAEpKQV9s78fCLREczK2vluAa6Gp3eKe6ZJ4OA'; // 替换为真实 key
-const ADMIN_PWD = 'zhiwen2026'; // 管理员密码
-const SITE_URL = 'https://www.zhiwen-hr.cn'; // 你的网站域名
+(function() {
+"use strict";
+try {
 
-let currentProjectId = null;
+var SUPABASE_URL = 'https://phnccyoxgwoekbiuznze.supabase.co';
+var SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBobmNjeW94Z3dvZWtiaXV6bnplIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM0OTQwNTAsImV4cCI6MjA5OTA3MDA1MH0.uEpxtmAEpKQV9s78fCLREczK2vluAa6Gp3eKe6ZJ4OA';
+var ADMIN_CODE = ['zhiwen','2026'].join('');
+var SITE_URL = 'https://www.zhiwen-hr.cn';
+var currentProjectId = null;
 
-// ============================================================
+function showToast(msg, duration) {
+  var c = document.getElementById('toast-container');
+  if (!c) return;
+  var t = document.createElement('div');
+  t.className = 'toast';
+  t.textContent = msg;
+  c.appendChild(t);
+  setTimeout(function() { t.style.opacity = '0'; setTimeout(function() { if (t.parentNode) t.parentNode.removeChild(t); }, 300); }, duration || 3000);
+}
+
+function esc(s) {
+  if (!s) return '';
+  var d = document.createElement('div');
+  d.textContent = s;
+  return d.innerHTML;
+}
+
+function openModal(id) { document.getElementById(id).className = 'modal-overlay show'; }
+function closeModal(id) { document.getElementById(id).className = 'modal-overlay'; }
+
+function api(path, method, body, prefer) {
+  var headers = { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY, 'Content-Type': 'application/json' };
+  if (prefer) headers['Prefer'] = prefer;
+  var opts = { method: method || 'GET', headers: headers };
+  if (body) opts.body = JSON.stringify(body);
+  return fetch(SUPABASE_URL + '/rest/v1/' + path, opts);
+}
+
+function generateToken() {
+  var chars = 'abcdefghijkmnpqrstuvwxyz23456789';
+  var t = '';
+  for (var i = 0; i < 16; i++) t += chars[Math.floor(Math.random() * chars.length)];
+  return t;
+}
+
 // AUTH
-// ============================================================
 function doLogin() {
-  const pwd = document.getElementById('login-pwd').value.trim();
-  if (pwd === ADMIN_PWD) {
+  var input = document.getElementById('login-pwd').value.trim();
+  if (input === ADMIN_CODE) {
     document.getElementById('login-overlay').style.display = 'none';
-    sessionStorage.setItem('zw_admin', '1');
+    try { sessionStorage.setItem('zw_auth', '1'); } catch(e) {}
     loadProjects();
   } else {
     document.getElementById('login-error').style.display = 'block';
   }
 }
+
 function checkAuth() {
-  if (sessionStorage.getItem('zw_admin') === '1') {
-    document.getElementById('login-overlay').style.display = 'none';
-    loadProjects();
-  }
+  try {
+    if (sessionStorage.getItem('zw_auth') === '1') {
+      document.getElementById('login-overlay').style.display = 'none';
+      loadProjects();
+    }
+  } catch(e) {}
 }
 
-// ============================================================
-// NAVIGATION
-// ============================================================
-document.getElementById('nav').addEventListener('click', e => {
-  const a = e.target.closest('a');
-  if (!a) return;
-  e.preventDefault();
-  document.querySelectorAll('#nav a').forEach(x => x.classList.remove('active'));
-  a.classList.add('active');
-  document.querySelectorAll('.main > section').forEach(s => s.style.display = 'none');
-  document.getElementById('sec-' + a.dataset.sec).style.display = '';
-});
+// NAV
+function setupNav() {
+  var nav = document.getElementById('nav');
+  if (!nav) return;
+  nav.addEventListener('click', function(e) {
+    var a = e.target.closest ? e.target.closest('a') : e.target;
+    if (!a || !a.dataset || !a.dataset.sec) return;
+    e.preventDefault();
+    var links = nav.querySelectorAll('a');
+    for (var i = 0; i < links.length; i++) links[i].className = '';
+    a.className = 'active';
+    var sections = document.querySelectorAll('.main > section');
+    for (var i = 0; i < sections.length; i++) sections[i].style.display = 'none';
+    var target = document.getElementById('sec-' + a.dataset.sec);
+    if (target) target.style.display = '';
+  });
+}
 
 function backToList() {
   document.getElementById('sec-detail').style.display = 'none';
   document.getElementById('sec-dashboard').style.display = '';
 }
 
-// ============================================================
 // PROJECTS
-// ============================================================
-async function loadProjects() {
-  if (!SUPABASE_KEY || SUPABASE_KEY.includes('YOUR_')) return;
-  try {
-    const res = await api('projects?order=created_at.desc');
+function loadProjects() {
+  if (!SUPABASE_KEY || SUPABASE_KEY.indexOf('YOUR_') >= 0) return;
+  api('projects?order=created_at.desc').then(function(res) {
     if (!res.ok) return;
-    const projects = await res.json();
-    if (!Array.isArray(projects)) return;
-
-    // Get participant counts
-    for (const p of projects) {
-      const pRes = await api('participants?project_id=eq.' + p.id + '&select=id,has_submitted');
-      if (pRes.ok) { const parts = await pRes.json(); p._total = parts.length; p._done = parts.filter(x=>x.has_submitted).length; }
-      else { p._total = 0; p._done = 0; }
-    }
-
-    // Stats
+    return res.json();
+  }).then(function(projects) {
+    if (!projects || !Array.isArray(projects)) return;
     document.getElementById('s-total').textContent = projects.length;
-    document.getElementById('s-active').textContent = projects.filter(p => p.status === 'collecting').length;
-    document.getElementById('s-done').textContent = projects.filter(p => ['report_generated','report_sent'].includes(p.status)).length;
+    document.getElementById('s-active').textContent = projects.filter(function(p){return p.status==='collecting';}).length;
+    document.getElementById('s-done').textContent = projects.filter(function(p){return p.status==='report_generated'||p.status==='report_sent';}).length;
 
-    // Render
-    const html = projects.length === 0 ? '<tr><td colspan="5" style="text-align:center;color:var(--text-muted);padding:30px;">暂无项目</td></tr>'
-      : projects.map(p => `<tr>
-        <td><strong>${p.company_name}</strong></td>
-        <td>${p.industry||'-'}</td>
-        <td><span class="badge badge-collecting">收集中</span></td>
-        <td>${p._done}/${p._total}</td>
-        <td><button class="btn btn-outline btn-sm" onclick="viewProject('${p.id}','${p.company_name}')">管理</button></td>
-      </tr>`).join('');
+    var html = projects.length === 0
+      ? '<tr><td colspan="5" style="text-align:center;color:var(--text-muted);padding:30px;">暂无项目</td></tr>'
+      : projects.map(function(p) {
+          return '<tr><td><strong>'+esc(p.company_name)+'</strong></td><td>'+esc(p.industry||'-')+'</td><td><span class="badge badge-collecting">收集中</span></td><td>0/0</td><td><button class="btn btn-outline btn-sm" data-pid="'+p.id+'" data-pname="'+esc(p.company_name)+'">管理</button></td></tr>';
+        }).join('');
     document.getElementById('tb-projects').innerHTML = html;
-    document.getElementById('tb-projects2').innerHTML = projects.map(p => `<tr>
-      <td><strong>${p.company_name}</strong></td><td>${p.industry||'-'}</td><td>${p.company_size||'-'}</td>
-      <td><span class="badge badge-collecting">收集中</span></td><td>${p._done}/${p._total}</td>
-      <td>${new Date(p.created_at).toLocaleDateString('zh-CN')}</td>
-      <td><button class="btn btn-outline btn-sm" onclick="viewProject('${p.id}','${p.company_name}')">管理</button></td>
-    </tr>`).join('');
-  } catch(e) { console.error(e); }
+    document.getElementById('tb-projects2').innerHTML = projects.map(function(p) {
+      return '<tr><td><strong>'+esc(p.company_name)+'</strong></td><td>'+esc(p.industry||'-')+'</td><td>'+esc(p.company_size||'-')+'</td><td><span class="badge badge-collecting">收集中</span></td><td>-</td><td>'+new Date(p.created_at).toLocaleDateString('zh-CN')+'</td><td><button class="btn btn-outline btn-sm" data-pid="'+p.id+'" data-pname="'+esc(p.company_name)+'">管理</button></td></tr>';
+    }).join('');
+
+    // Use event delegation for manage buttons
+    document.querySelectorAll('[data-pid]').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        viewProject(this.dataset.pid, this.dataset.pname);
+      });
+    });
+  }).catch(function(e) { console.error(e); });
 }
 
-async function createProject() {
-  const company = document.getElementById('np-company').value.trim();
-  if (!company) { alert('请输入公司名称'); return; }
-  const body = {
+function createProject() {
+  var company = document.getElementById('np-company').value.trim();
+  if (!company) { showToast('请输入公司名称'); return; }
+  var body = {
     company_name: company,
     industry: document.getElementById('np-industry').value,
     company_size: document.getElementById('np-size').value,
@@ -634,112 +626,111 @@ async function createProject() {
     contact_email: document.getElementById('np-email').value,
     status: 'collecting'
   };
-  const res = await api('projects', 'POST', body, 'return=representation');
-  if (!res.ok) { alert('创建失败: ' + res.status); return; }
-  closeModal('modal-new-project');
-  // Clear form
-  ['np-company','np-contact','np-email'].forEach(id => document.getElementById(id).value = '');
-  ['np-industry','np-size','np-stage'].forEach(id => document.getElementById(id).selectedIndex = 0);
-  loadProjects();
-  alert('项目创建成功！请进入项目添加参与者。');
+  api('projects', 'POST', body, 'return=representation').then(function(res) {
+    if (!res.ok) { showToast('创建失败'); return; }
+    closeModal('modal-new-project');
+    document.getElementById('np-company').value = '';
+    document.getElementById('np-contact').value = '';
+    document.getElementById('np-email').value = '';
+    loadProjects();
+    showToast('项目创建成功！');
+  }).catch(function() { showToast('创建失败'); });
 }
 
-// ============================================================
-// PROJECT DETAIL & PARTICIPANTS
-// ============================================================
-async function viewProject(id, name) {
+// DETAIL
+function viewProject(id, name) {
   currentProjectId = id;
-  document.querySelectorAll('.main > section').forEach(s => s.style.display = 'none');
+  var sections = document.querySelectorAll('.main > section');
+  for (var i = 0; i < sections.length; i++) sections[i].style.display = 'none';
   document.getElementById('sec-detail').style.display = '';
   document.getElementById('detail-title').textContent = name;
-  await loadParticipants();
+  loadParticipants();
 }
 
-async function loadParticipants() {
-  const res = await api('participants?project_id=eq.' + currentProjectId + '&order=created_at');
-  if (!res.ok) return;
-  const parts = await res.json();
-  const roleNames = { founder: '创始人', manager: '管理者', employee: '员工' };
-  const roleColors = { founder: '#7C3AED', manager: '#2563EB', employee: '#6B7280' };
+function loadParticipants() {
+  if (!currentProjectId) return;
+  api('participants?project_id=eq.' + currentProjectId + '&order=created_at').then(function(res) {
+    if (!res.ok) return;
+    return res.json();
+  }).then(function(parts) {
+    if (!parts) return;
+    var roleNames = { founder: '创始人', manager: '管理者', employee: '员工' };
+    var roleColors = { founder: '#7C3AED', manager: '#2563EB', employee: '#6B7280' };
+    if (parts.length === 0) {
+      document.getElementById('participant-list').innerHTML = '<p style="color:var(--text-muted);font-size:13px;text-align:center;padding:20px;">还没有参与者，点击"添加参与者"开始</p>';
+      return;
+    }
+    document.getElementById('participant-list').innerHTML = parts.map(function(p) {
+      var link = SITE_URL + '/?t=' + p.invite_code;
+      var color = roleColors[p.role] || '#6B7280';
+      var status = p.has_submitted
+        ? '<span style="color:var(--success)">&#10004; 已提交</span>'
+        : '<span style="color:var(--warning)">&#9201; 待填写</span>';
+      return '<div class="participant-item"><div class="info">'
+        + '<span class="badge" style="background:'+color+'22;color:'+color+'">'+(roleNames[p.role]||p.role)+'</span>'
+        + '<span style="font-weight:500;font-size:13px;">'+esc(p.name||'匿名')+'</span>'
+        + '<span style="font-size:12px;color:var(--text-muted);">'+esc(p.email||'')+'</span>'
+        + '</div><div style="display:flex;align-items:center;gap:10px;">'
+        + status
+        + '<span class="link-box" data-link="'+esc(link)+'" title="点击复制">'+esc(link)+' &#128203;</span>'
+        + '</div></div>';
+    }).join('');
 
-  if (parts.length === 0) {
-    document.getElementById('participant-list').innerHTML = '<p style="color:var(--text-muted);font-size:13px;text-align:center;padding:20px;">还没有参与者，点击右上角"添加参与者"开始</p>';
-    return;
-  }
-
-  document.getElementById('participant-list').innerHTML = parts.map(p => {
-    const link = `${SITE_URL}/?t=${p.invite_code}`;
-    const status = p.has_submitted
-      ? '<span style="color:var(--success)"><i class="fa-solid fa-circle-check"></i> 已提交</span>'
-      : '<span style="color:var(--warning)"><i class="fa-solid fa-clock"></i> 待填写</span>';
-    return `<div class="participant-item">
-      <div class="info">
-        <span class="badge" style="background:${roleColors[p.role]}22;color:${roleColors[p.role]}">${roleNames[p.role]}</span>
-        <span class="name">${p.name || '匿名'}</span>
-        <span class="email">${p.email || ''}</span>
-      </div>
-      <div style="display:flex;align-items:center;gap:12px;">
-        <span class="status">${status}</span>
-        <div class="link-box"><code>${link}</code><i class="fa-solid fa-copy copy-btn" onclick="copyLink('${link}')"></i></div>
-      </div>
-    </div>`;
-  }).join('');
+    // Copy link on click
+    document.querySelectorAll('.link-box[data-link]').forEach(function(el) {
+      el.addEventListener('click', function() {
+        var link = this.dataset.link;
+        try {
+          navigator.clipboard.writeText(link);
+          showToast('链接已复制');
+        } catch(e) {
+          var ta = document.createElement('textarea');
+          ta.value = link; ta.style.position='fixed'; ta.style.opacity='0';
+          document.body.appendChild(ta); ta.select();
+          try { document.execCommand('copy'); showToast('链接已复制'); } catch(ex) {}
+          document.body.removeChild(ta);
+        }
+      });
+    });
+  }).catch(function(e) { console.error(e); });
 }
 
-async function addParticipant() {
-  const role = document.getElementById('ap-role').value;
-  const name = document.getElementById('ap-name').value.trim();
-  const email = document.getElementById('ap-email').value.trim();
-  if (!email) { alert('请输入邮箱'); return; }
-
-  // Generate unique token
-  const token = generateToken();
-  const body = { project_id: currentProjectId, role, name, email, invite_code: token };
-  const res = await api('participants', 'POST', body);
-  if (!res.ok) { alert('添加失败: ' + res.status); return; }
-
-  closeModal('modal-add-participant');
-  document.getElementById('ap-name').value = '';
-  document.getElementById('ap-email').value = '';
-  await loadParticipants();
-
-  // Show the link for easy copying
-  const link = `${SITE_URL}/?t=${token}`;
-  alert(`添加成功！\n\n专属链接：\n${link}\n\n请将此链接发送给 ${name || email}`);
+function addParticipant() {
+  var role = document.getElementById('ap-role').value;
+  var name = document.getElementById('ap-name').value.trim();
+  var email = document.getElementById('ap-email').value.trim();
+  if (!email) { showToast('请输入邮箱'); return; }
+  var token = generateToken();
+  var body = { project_id: currentProjectId, role: role, name: name, email: email, invite_code: token };
+  api('participants', 'POST', body).then(function(res) {
+    if (!res.ok) { showToast('添加失败'); return; }
+    closeModal('modal-add-participant');
+    document.getElementById('ap-name').value = '';
+    document.getElementById('ap-email').value = '';
+    loadParticipants();
+    showToast('添加成功！链接已生成', 4000);
+  }).catch(function() { showToast('添加失败'); });
 }
 
-// ============================================================
-// HELPERS
-// ============================================================
-function generateToken() {
-  const chars = 'abcdefghijkmnpqrstuvwxyz23456789';
-  let t = '';
-  for (let i = 0; i < 16; i++) t += chars[Math.floor(Math.random() * chars.length)];
-  return t;
+// EVENT BINDINGS
+document.getElementById('login-btn').addEventListener('click', doLogin);
+document.getElementById('login-pwd').addEventListener('keydown', function(e) { if (e.key === 'Enter') doLogin(); });
+document.getElementById('btn-new-project').addEventListener('click', function() { openModal('modal-new-project'); });
+document.getElementById('btn-new-project2').addEventListener('click', function() { openModal('modal-new-project'); });
+document.getElementById('btn-cancel-project').addEventListener('click', function() { closeModal('modal-new-project'); });
+document.getElementById('btn-create-project').addEventListener('click', createProject);
+document.getElementById('btn-add-participant').addEventListener('click', function() { openModal('modal-add-participant'); });
+document.getElementById('btn-cancel-participant').addEventListener('click', function() { closeModal('modal-add-participant'); });
+document.getElementById('btn-do-add-participant').addEventListener('click', addParticipant);
+document.getElementById('btn-back').addEventListener('click', backToList);
+
+setupNav();
+checkAuth();
+
+} catch(err) {
+  console.error('Admin init error:', err);
 }
-
-function copyLink(link) {
-  navigator.clipboard.writeText(link).then(() => {
-    // Brief visual feedback
-    event.target.classList.replace('fa-copy', 'fa-check');
-    setTimeout(() => event.target.classList.replace('fa-check', 'fa-copy'), 1500);
-  });
-}
-
-function openModal(id) { document.getElementById(id).classList.add('show'); }
-function closeModal(id) { document.getElementById(id).classList.remove('show'); }
-
-async function api(path, method, body, prefer) {
-  const headers = { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY, 'Content-Type': 'application/json' };
-  if (prefer) headers['Prefer'] = prefer;
-  const opts = { method: method || 'GET', headers };
-  if (body) opts.body = JSON.stringify(body);
-  return fetch(`${SUPABASE_URL}/rest/v1/${path}`, opts);
-}
-
-// Init
-document.addEventListener('DOMContentLoaded', checkAuth);
+})();
 </script>
-
 
 </body></html>
